@@ -61,7 +61,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 mongoose.set("strictQuery", true);
 
 mongoose.connect(
-  `mongodb+srv://sdpathak:${process.env.PASSWORD}@cluster0.kckb1wt.mongodb.net/timelineDB`,
+  `mongodb+srv://devarsh_nagrecha:${process.env.PASSWORD}@cluster0.vqnm6ti.mongodb.net/timelineDB`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
