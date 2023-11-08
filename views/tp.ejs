@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    Hello <%= user.name %>
+    <img src="<%= user.image %>" alt="profile" srcset="" width="300">
+    <div class="timeline-heading">
+      <h1>Timeline by you</h1>
+      <form action="/viewTimeline" method="post">
+        <% for (let i = 0; i < createdTimelines.length; i++) { %>
+        <h2>title: <%= createdTimelines[i].title %></h2>
+        <h3>Date created: <%= createdTimelines[i].dateCreated %></h3>
+        <h3>by: <%= createdTimelines[i].creator.name %></h3>
+        <button
+          type="submit"
+          name="delete"
+          value="<%= createdTimelines[i].id %>"
+        >
+          Delete
+        </button>
+        <button type="submit" name="view" value="<%= createdTimelines[i].id %>">
+          View
+        </button>
+        <% } %>
+      </form>
+      <button id="createTimeline" type="submit">Create</button>
+      <h1>Timeline added</h1>
+      <form action="/watchTimeline" method="post">
+        <% for (let i = 0; i < wactchTimelines.length; i++) { %>
+        <h2>title: <%= wactchTimelines[i].title %></h2>
+        <h3>Date created: <%= wactchTimelines[i].dateCreated %></h3>
+        <h3>by: <%= wactchTimelines[i].creator.name %></h3>
+        <button
+          type="submit"
+          name="remove"
+          value="<%= wactchTimelines[i].id %>"
+        >
+          Remove
+        </button>
+        <button type="submit" name="view" value="<%= wactchTimelines[i].id %>">
+          View
+        </button>
+        <% } %>
+      </form>
+    </div>
+
+    <form action="/logoutUser?_method=DELETE" method="post">
+      <button type="submit">Logout</button>
+    </form>
+  </body>
+  <script>
+    document.addEventListener("DOMContentLoaded", function () {
+      const createTimelineBtn = document.getElementById("createTimeline");
+      createTimelineBtn.addEventListener("click", function () {
+        console.log("hello");
+        const createTimelinePopup = document.createElement("div");
+        createTimelinePopup.id = "create-timeline-popup";
+        createTimelinePopup.innerHTML = `
+        <form id="create-timeline-form" class="create-timeline-form" action="/timeline" method="post">
+          <label for="timeline-heading">Timeline Heading:</label>
+          <input type="text" id="timeline-heading" name="heading" required>
+          <div class="create-timeline-btns">
+            <button type="button" id="cancel-create-timeline-btn">Cancel</button>
+            <button type="submit">Create Timeline</button>
+          </div>
+        </form>
+      `;
+        document.body.appendChild(createTimelinePopup);
+        const cancelCreateTimelineBtn = document.getElementById(
+          "cancel-create-timeline-btn"
+        );
+        cancelCreateTimelineBtn.addEventListener("click", function () {
+          document.body.removeChild(createTimelinePopup);
+        });
+      });
+    });
+
+    // Function to show create timeline form as a pop-up
+    // function showCreateTimelinePopup() {
+    //   console.log("hello");
+    //   const createTimelinePopup = document.createElement("div");
+    //   createTimelinePopup.id = "create-timeline-popup";
+    //   createTimelinePopup.innerHTML = `
+    //     <form id="create-timeline-form" class="create-timeline-form">
+    //       <label for="timeline-heading">Timeline Heading:</label>
+    //       <input type="text" id="timeline-heading" required>
+    //       <div class="create-timeline-btns">
+    //         <button type="button" id="cancel-create-timeline-btn">Cancel</button>
+    //         <button type="submit">Create Timeline</button>
+    //       </div>
+    //     </form>
+    //   `;
+    // }
+  </script>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup-Timeline</title>
+  </head>
+  <body>
+    <form action="/signup" method="post" enctype="multipart/form-data">
+      <input type="text" name="name" placeholder="name" />
+      <input type="text" name="email" placeholder="email" />
+      <input type="password" name="password" placeholder="password" />
+      <input type="file" name="image" id="picture" accept="image/*">
+      <button type="submit">signup</button>
+    </form>
+    <button onclick="window.location.href='/login'">login</button>
+  </body>
+</html>

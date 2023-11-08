@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Timeline</title>
+</head>
+
+<body>
+  <div class="timelineHeading">
+    <h1>
+      <%= timeline.title %>
+    </h1>
+  </div>
+  <form action="/addWatcher" method="post">
+    <input type="email" name="email" />
+    <button type="submit" name="addWatcher" value="<%= timeline.id %>">
+      Add user
+    </button>
+  </form>
+  <form action="/deleteEvent" method="post">
+    <% for (var i=0; i <events.length; i++) { %>
+      <h3> Event : <%= i+1 %>
+      </h3>
+      <h4> Title : <%= events[i].title %>
+      </h4>
+      <h4> Date : <%= events[i].date %>
+      </h4>
+      <h4> Text : <%= events[i].text %>
+      </h4>
+      <img width="300" class="profile-image" src="<%= events[i].image %>" alt="Picture">
+      <% if (events[i].creator==auth) { %>
+        <button type="submit" name="delete" value="<%= events[i].id %>">Delete event</button>
+        <% } %>
+          <% } %>
+  </form>
+
+  <br />
+  <button id="createEventBtn">Add event</button>
+</body>
+<script>
+  const createEventBtn = document.getElementById("createEventBtn");
+  createEventBtn.addEventListener("click", () => {
+    const createEventPopup = document.createElement("div");
+    createEventPopup.id = "create-event-popup";
+    createEventPopup.innerHTML = `
+      <h1 class="create-event-form-heading">Create New Event</h1>
+      <form action="/addEvent" method="post" id="create-event-form" class="create-event-form" enctype="multipart/form-data">
+        <label for="event-title">Title:</label>
+        <input name="title" type="text" id="event-title" required />
+        <label for="event-date">Date:</label>
+        <input name="date" type="date" id="event-date" required />
+        <label for="event-text">Text:</label>
+        <textarea name="text" id="event-text" required></textarea>
+        <label for="event-image">Image:</label>
+        <input type="file" class="form-control" name="image" id="picture" accept="image/*">
+        <input name="tline" value="<%= timeline.id %>" hidden/>
+        <div class="create-event-form-buttons">
+          <button type="button" id="cancel-create-event-btn">Cancel</button>
+          <button type="submit">Save Event</button>
+        </div>
+      </form>
+    `;
+    document.body.appendChild(createEventPopup);
+    const cancelCreateEventBtn = document.getElementById(
+      "cancel-create-event-btn"
+    );
+    cancelCreateEventBtn.addEventListener("click", () => {
+      document.body.removeChild(createEventPopup);
+    });
+  });
+</script>
+
+</html>
