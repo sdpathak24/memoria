@@ -23,6 +23,7 @@ const upload = multer({ dest: 'uploads/' });
 const initializePassportUser = require("./passport-config-user");
 const e = require("express");
 const { create } = require("domain");
+const path = require("path");
 
 const AZURE_STORAGE_ACCOUNT = process.env.AZURE_STORAGE_ACCOUNT;
 const AZURE_STORAGE_CONTAINER = process.env.AZURE_STORAGE_CONTAINER;
@@ -56,6 +57,8 @@ app.use(
 app.use(passportUser.initialize());
 app.use(passportUser.session());
 app.use(bodyParser.urlencoded({ extended: false }));
+app.use(express.static(path.join(__dirname, 'styles')));
+
 
 mongoose.set("strictQuery", true);
 
