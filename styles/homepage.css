@@ -8,6 +8,20 @@ body {
   background-color: #f0f0f0; /* Background color for the body */
 }
 
+.logo{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 50%;
+  position: absolute;
+}
+
+.logo img{
+  height: 60px;
+  top: 50%;
+  position: relative;
+}
+
 .buttonArea {
     position: absolute;
     bottom: 0;

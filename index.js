@@ -58,6 +58,8 @@ app.use(passportUser.initialize());
 app.use(passportUser.session());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'styles')));
+app.use(express.static(path.join(__dirname, 'imgs')));
+
 
 
 mongoose.set("strictQuery", true);
