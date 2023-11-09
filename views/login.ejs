@@ -2,19 +2,21 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../styles/login.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
+    <link rel="stylesheet" href="/login.css" />
     <title>login-Timeline</title>
   </head>
   <body>
-    <form action="/login" method="post">
-      <input type="text" name="email" placeholder="email" />
-      <input type="password" name="password" placeholder="password" />
-      <input type="submit" value="login" />
-    </form>
-    <button onclick="window.location.href='/signup'">Signup</button>
-    <% if(messages.error) { %>
-    <p><%= messages.error %></p>
-    <% } %>
+    <div class="container">
+      <form action="/login" method="post" class="login-container">
+        <input type="text" name="email" placeholder="email" class="email"/>
+        <input type="password" name="password" placeholder="password" class="password" />
+        <input type="submit" value="login" class="login-btn" />
+      </form>
+      <% if(messages.error) { %>
+      <p class="message"><%= messages.error %></p>
+      <% } %>
+      <button onclick="window.location.href='/signup'" class="signup-btn">Signup</button>
+    </div>
   </body>
 </html>
