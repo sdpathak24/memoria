@@ -3,9 +3,11 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="/tp.css">
     <title>Document</title>
   </head>
   <body>
+    <div class="profile-container">
     Hello <%= user.name %>
     <img src="<%= user.image %>" alt="profile" srcset="" width="300">
     <div class="timeline-heading">
@@ -51,6 +53,8 @@
     <form action="/logoutUser?_method=DELETE" method="post">
       <button type="submit">Logout</button>
     </form>
+  </div>
+
   </body>
   <script>
     document.addEventListener("DOMContentLoaded", function () {

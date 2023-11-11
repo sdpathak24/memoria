@@ -1,0 +1,73 @@
+body {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #dde5f4;
+    flex-direction: column;
+  }
+  
+  .profile-container {
+    background-color: #f1f7fe;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    border-radius: 30px;
+    margin-top: 20px;
+  }
+  
+  .profile-image {
+    height: 300px; /* Adjust the height as needed */
+    margin-bottom: 20px;
+  }
+  
+  .timeline-heading h1 {
+    margin-bottom: 20px;
+  }
+  
+  .timeline-item {
+    margin-bottom: 20px;
+  }
+  
+  .timeline-item h2,
+  .timeline-item h3 {
+    margin: 0;
+  }
+  
+  .timeline-item button {
+    margin-right: 10px;
+    background-color: #5864ba;
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  #createTimeline {
+    background-color: #3e4684;
+    border: none;
+    padding: 20px;
+    width: 100%;
+    border-radius: 20px;
+    font-weight: 900;
+    font-size: 12px;
+    color: white;
+    margin-bottom: 20px;
+  }
+  
+  .logout-btn {
+    background-color: #ff0000; /* Adjust the color as needed */
+    border: none;
+    padding: 10px;
+    border-radius: 10px;
+    color: white;
+    cursor: pointer;
+  }
+  
+  .message {
+    color: red;
+    font-family: "Courier New", Courier, monospace;
+    font-size: 10px;
+  }
+  
