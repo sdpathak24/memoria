@@ -1,11 +1,35 @@
 body {
-  min-height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #dde5f4;
+  /* min-height: 100vh; */
+  /* display: flex; */
+  /* justify-content: center; */
+  /* align-items: center; */
   margin: 0;
   font-family: Arial, sans-serif;
+}
+
+.container {
+  background-color: #dde5f4;
+}
+
+.navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #f1f7fe;
+  border-bottom: 0.5px solid #5e5e5e;
+}
+
+.logo img {
+  height: 4pc;
+  margin: 0 10px;
+}
+
+.icons {
+  margin: 0 10px;
+}
+
+.icons i {
+  padding: 0 15px;
 }
 
 .profile-container {
