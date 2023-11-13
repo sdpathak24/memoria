@@ -2,12 +2,50 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no"  />
-    <link rel="stylesheet" href="/signup.css">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0 user-scalable=no"
+    />
+    <link rel="stylesheet" href="/signup.css" />
     <title>Signup-Timeline</title>
   </head>
   <body>
-    <div class="logo">
+    <div class="container">
+      <div class="left-half">
+        <div class="logo">
+          <img src="/memoria_logo.png" alt="" />
+        </div>
+      </div>
+      <div class="right-half">
+        <div class="signup-container">
+          <form action="/signup" method="post" enctype="multipart/form-data">
+            <input type="text" name="name" placeholder="name" class="name" />
+            <input type="text" name="email" placeholder="email" class="email" />
+            <input
+              type="password"
+              name="password"
+              placeholder="password"
+              class="password"
+            />
+            <input
+              type="file"
+              name="image"
+              id="picture"
+              accept="image/*"
+              class="picture"
+            />
+            <button type="submit" class="signup-btn">signup</button>
+          </form>
+          <div class="login-container">
+            <p>already have an account?</p>
+            <button onclick="window.location.href='/login'" class="login-btn">
+              login
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="logo">
       <img src="/logo.png" alt="">
     </div>
     <div class="container">
@@ -19,6 +57,6 @@
         <button type="submit" class="signup-btn">signup</button>
       </form>
       <button onclick="window.location.href='/login'" class="login-btn">login</button>
-    </div>
+    </div> -->
   </body>
 </html>

@@ -1,31 +1,50 @@
-body {
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: #dde5f4;
+* {
+  padding: 0;
+  margin: 0;
 }
 
-.logo img{
-  height: 60px;
+body {
+  height: 100%;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .container {
-  background-color: #f1f7fe;
   display: flex;
-  flex-direction: column;
-  padding: 30px;
-  border-radius: 30px;
-  position: absolute;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  left: 50%;
-  max-width: 90%;
-  width: 80%;
 }
 
+.left-half {
+  background-color: #f1f7fe;
+  width: 60%;
+  display: flex;
+  justify-content: center;
+  height: 100vh;
+  align-items: center;
+}
+
+.logo img {
+  height: 15pc;
+}
+
+.right-half {
+  width: 40%;
+  background-color: #343a70;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* background-color: #3e4684; */
+
 .login-container {
-  /* gap: 20px; */
+  display: flex;
+  flex-direction: column;
+  background: #dde5f4;
+  border-radius: 10px;
+  width: 50%;
+}
+
+.login-container form {
   display: flex;
   flex-direction: column;
 }
@@ -37,6 +56,7 @@ body {
   font-size: 15px;
   padding: 20px;
   margin: 10px;
+  border-radius: 10px;
 }
 
 .password {
@@ -46,30 +66,51 @@ body {
   font-size: 15px;
   padding: 20px;
   margin: 10px;
+  border-radius: 10px;
+}
+
+.signup-container {
+  margin: 13px;
+  display: flex;
+  align-items: center;
+}
+
+.signup-container p {
+  color: #5e5e5e;
+  font-size: 13px;
+}
+
+.signup-container button {
+  border: none;
+  outline: none;
+  margin: 0 5px;
+  font-size: 14px;
+  background: none;
+  color: #5e5e5e;
+  border-bottom: solid #5e5e5e;
+}
+
+.signup-container button:hover {
+  cursor: pointer;
 }
 
 .login-btn {
   background-color: #3e4684;
   border: none;
   padding: 20px;
-  width: 100%;
-  border-radius: 20px;
+  border-radius: 10px;
   font-weight: 900;
   font-size: 12px;
   color: white;
+  margin: 0 10px;
 }
 
-.signup-btn{
-    border: none;
-    outline: none;
-    margin: 20px;
-    background: none;
-    width: 0;
-    color: #5e5e5e;
+.login-btn:hover {
+  cursor: pointer;
 }
 
-.message{
-    color: red;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 10px;
+.message {
+  color: red;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
 }
