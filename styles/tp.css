@@ -5,34 +5,48 @@ body {
   /* align-items: center; */
   margin: 0;
   font-family: Arial, sans-serif;
+  /* background-color: #d0cfff; */
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .container {
-  background-color: #dde5f4;
+  /* background-color: #f1f7fe; */
+  width: 60%;
+  display: flex;
 }
 
 .navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: #f1f7fe;
+  /* background-color: #d0cfff; */
   border-bottom: 0.5px solid #5e5e5e;
+  height: 4pc;
+}
+
+.logo {
+  margin: 0 10px;
 }
 
 .logo img {
-  height: 4pc;
+  height: 5pc;
   margin: 0 10px;
 }
 
 .icons {
   margin: 0 10px;
+  display: flex;
+  align-items: center;
 }
 
 .icons i {
   padding: 0 15px;
 }
 
-.profile-container {
+/* .profile-container {
   background-color: #f1f7fe;
   display: flex;
   flex-direction: column;
@@ -40,23 +54,65 @@ body {
   padding: 30px;
   border-radius: 30px;
   margin-top: 20px;
-}
+} */
 
 .profile-image {
-  height: 150px; /* Adjust the height */
-  width: 150px; /* Ensure the width is the same as the height for a circular shape */
-  border-radius: 50%; /* Make it circular */
-  margin-bottom: 20px;
-  overflow: hidden; /* Ensure the image stays within the circular boundary */
+  padding: 0 15px;
+  height: 30px;
+  border-radius: 50%;
+  width: 30px;
+  object-fit: cover;
 }
 
-.profile-image img {
+.hero {
+  display: flex;
+  /* justify-content: space-between; */
+}
+
+.sidebar {
+  display: flex;
+  width: 18%;
+  flex-direction: column;
+  align-items: flex-start;
+  margin: 10px;
+}
+
+.sidebar p {
+  margin: 10px;
+  /* background: aqua; */
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.sidebar p:hover {
+  cursor: pointer;
+}
+
+.friends {
+  display: flex;
+  width: 20%;
+  flex-direction: column;
+}
+
+.friends-list {
+  display: flex;
+  align-items: center;
+}
+
+.friends-list img {
+  width: 30px;
+  border-radius: 50%;
+  height: 30px;
+  margin-right: 10px;
+}
+
+/* .profile-image img {
   width: 100%;
   height: auto;
   display: block;
-}
+} */
 
-.timeline-heading h1 {
+/* .timeline-heading h1 {
   margin-bottom: 20px;
 }
 
@@ -67,6 +123,22 @@ body {
 .timeline-item h2,
 .timeline-item h3 {
   margin: 0;
+} */
+
+.timelineByYou {
+  margin-top: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  /* background-color: #f1f7fe; */
+  width: 100%;
+}
+
+.timelineAdded {
+  margin-top: 10px;
+  padding: 20px;
+  border-radius: 10px;
+  /* background-color: #f1f7fe; */
+  width: 100%;
 }
 
 .timeline-item button {
@@ -82,13 +154,92 @@ body {
 #createTimeline {
   background-color: #3e4684;
   border: none;
-  padding: 20px;
-  width: 100%;
-  border-radius: 20px;
-  font-weight: 900;
-  font-size: 12px;
+  padding: 10px;
+  border-radius: 50%;
+  font-size: 28px;
   color: white;
-  margin-bottom: 20px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.timelines {
+  /* background: aliceblue; */
+  /* background-color: rgba(208, 207, 255, 1); */
+  /* background-color: #d0cfff; */
+  background: rgba(208, 207, 255, 0.49);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(12.4px);
+  -webkit-backdrop-filter: blur(12.4px);
+  border: 1px solid rgba(208, 207, 255, 0.3);
+  padding: 30px;
+  margin: 10px;
+  position: relative;
+  border-radius: 20px;
+}
+
+.timelineTitle {
+  font-size: 35px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.members {
+  display: flex;
+  align-items: center;
+}
+
+.members img {
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.members img:nth-child(1) {
+  margin-right: -15px; /* Adjust the margin between stacked images */
+  z-index: 3; /* Ensures the first image is at the top of the stack */
+}
+
+.members img:nth-child(2) {
+  margin-right: -15px; /* Adjust the margin between stacked images */
+  z-index: 2; /* Sets the second image to be above the first */
+}
+
+.members img:nth-child(3) {
+  z-index: 1; /* Sets the third image to be above the second */
+}
+/* 
+.members img:nth-child(n + 4) {
+  display: none; 
+} */
+/* 
+.creator-logo {
+  z-index: 100;
+} */
+
+.view-btn {
+  margin: 10px 0;
+  background-color: #3e4684;
+  border: none;
+  color: white;
+  font-size: 24px;
+  border-radius: 6px;
+  width: 50px;
+}
+
+.remove-btn {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  background-color: #ff0000;
+  outline: none;
+  border: none;
+  color: white;
+  padding: 7px;
+  border-radius: 7px;
+  font-size: 18px;
 }
 
 .logout-btn {
@@ -103,7 +254,9 @@ body {
 .message {
   color: red;
   font-family: "Courier New", Courier, monospace;
-  font-size: 10px;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 10px;
 }
 
 #create-timeline-popup {
@@ -125,4 +278,9 @@ body {
   justify-content: center;
   align-items: center;
   border-radius: 30px;
+}
+
+.logout {
+  position: absolute;
+  bottom: 15px;
 }

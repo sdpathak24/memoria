@@ -3,6 +3,13 @@
   margin: 0;
 }
 
+:root {
+  --primary: #01f4f4;
+  --secondary-light: #b4eefe;
+  --accent: #839556;
+  --secondary-dark: #013b4b;
+}
+
 body {
   height: 100%;
   font-family: Arial, Helvetica, sans-serif;
@@ -13,7 +20,8 @@ body {
 }
 
 .left-half {
-  background-color: #f1f7fe;
+  /* background-color: #f1f7fe; */
+  background-color: white;
   width: 60%;
   display: flex;
   justify-content: center;
@@ -27,7 +35,8 @@ body {
 
 .right-half {
   width: 40%;
-  background-color: #343a70;
+  /* background-color: #343a70; */
+  background-color: black;
   display: flex;
   justify-content: center;
   flex-direction: column;
@@ -41,7 +50,7 @@ body {
 }
 
 .buttonArea button {
-  background-color: #efedff;
+  background-color: var(--primary);
   border: none;
   outline: none;
   padding: 15px 60px;

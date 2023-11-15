@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <link rel="stylesheet" href="/login.css" />
     <title>login-Timeline</title>
   </head>
@@ -20,12 +17,7 @@
         <div class="login-container">
           <form action="/login" method="post">
             <input type="text" name="email" placeholder="email" class="email" />
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              class="password"
-            />
+            <input type="password" name="password" placeholder="password" class="password" />
             <button type="submit" class="login-btn">login</button>
           </form>
           <% if(messages.error) { %>
@@ -33,10 +25,7 @@
           <% } %>
           <div class="signup-container">
             <p>new user?</p>
-            <button onclick="window.location.href='/signup'" class="signup-btn">
-              Signup
-            </button>
-            <p>here</p>
+            <button onclick="window.location.href='/signup'" class="signup-btn">Signup</button>
           </div>
         </div>
       </div>

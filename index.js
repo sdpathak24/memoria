@@ -13,11 +13,7 @@ const saltRounds = 10;
 const methodOverride = require("method-override");
 const sharp = require("sharp");
 
-const {
-  BlobServiceClient,
-  StorageSharedKeyCredential,
-  newPipeline,
-} = require("@azure/storage-blob");
+const { BlobServiceClient, StorageSharedKeyCredential, newPipeline } = require("@azure/storage-blob");
 
 app.use(methodOverride("_method"));
 const multer = require("multer");
@@ -33,16 +29,10 @@ const AZURE_STORAGE_ACCOUNT = process.env.AZURE_STORAGE_ACCOUNT;
 const AZURE_STORAGE_CONTAINER = process.env.AZURE_STORAGE_CONTAINER;
 const AZURE_STORAGE_ACCESS_KEY = process.env.AZURE_STORAGE_ACCESS_KEY;
 
-const sharedKeyCredential = new StorageSharedKeyCredential(
-  AZURE_STORAGE_ACCOUNT,
-  AZURE_STORAGE_ACCESS_KEY
-);
+const sharedKeyCredential = new StorageSharedKeyCredential(AZURE_STORAGE_ACCOUNT, AZURE_STORAGE_ACCESS_KEY);
 const pipeline = newPipeline(sharedKeyCredential);
 
-const blobServiceClient = new BlobServiceClient(
-  `https://${AZURE_STORAGE_ACCOUNT}.blob.core.windows.net`,
-  pipeline
-);
+const blobServiceClient = new BlobServiceClient(`https://${AZURE_STORAGE_ACCOUNT}.blob.core.windows.net`, pipeline);
 
 initializePassportUser(
   passportUser,
@@ -69,13 +59,10 @@ app.use(express.static(path.join(__dirname, "imgs")));
 
 mongoose.set("strictQuery", true);
 
-mongoose.connect(
-  `mongodb+srv://devarsh_nagrecha:${process.env.PASSWORD}@cluster0.vqnm6ti.mongodb.net/timelineDB`,
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-);
+mongoose.connect(`mongodb+srv://devarsh_nagrecha:${process.env.PASSWORD}@cluster0.vqnm6ti.mongodb.net/timelineDB`, {
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+});
 
 const usersSchema = new mongoose.Schema({
   name: String,
@@ -137,9 +124,7 @@ app.get("/signup", (req, res) => {
 app.post("/signup", upload.single("image"), async (req, res) => {
   try {
     if (req.file) {
-      const containerClient = blobServiceClient.getContainerClient(
-        AZURE_STORAGE_CONTAINER
-      );
+      const containerClient = blobServiceClient.getContainerClient(AZURE_STORAGE_CONTAINER);
       const blobName = `${Date.now()}-${req.file.originalname}`;
 
       const blockBlobClient = containerClient.getBlockBlobClient(blobName);
@@ -156,17 +141,15 @@ app.post("/signup", upload.single("image"), async (req, res) => {
         if (user) {
           console.log("user already exists");
         } else {
-          bcrypt
-            .hash(req.body.password, saltRounds)
-            .then(function (hashedPassword) {
-              const user = new User({
-                name: req.body.name,
-                email: req.body.email,
-                password: hashedPassword,
-                image: imageUrl,
-              });
-              user.save().catch((err) => console.log(err));
+          bcrypt.hash(req.body.password, saltRounds).then(function (hashedPassword) {
+            const user = new User({
+              name: req.body.name,
+              email: req.body.email,
+              password: hashedPassword,
+              image: imageUrl,
             });
+            user.save().catch((err) => console.log(err));
+          });
         }
         res.redirect("/login");
       });
@@ -175,9 +158,7 @@ app.post("/signup", upload.single("image"), async (req, res) => {
     }
   } catch (error) {
     console.error("Error during image upload:", error);
-    res
-      .status(500)
-      .json({ error: "Error uploading image to Azure Blob Storage" });
+    res.status(500).json({ error: "Error uploading image to Azure Blob Storage" });
   }
 });
 
@@ -197,10 +178,10 @@ app.post(
 app.get("/tp", checkAuthenticated, (req, res) => {
   User.findOne({ _id: req.user }).then((user) => {
     Timeline.find({ watchers: { $in: user } })
-      .populate("creator")
+      .populate("creator watchers")
       .then((wactchTimelines) => {
         Timeline.find({ creator: user })
-          .populate("creator")
+          .populate("creator watchers")
           .then((createdTimelines) => {
             res.render("tp.ejs", { user, wactchTimelines, createdTimelines });
           });
@@ -268,6 +249,7 @@ app.post("/watchTimeline", checkAuthenticated, (req, res) => {
       });
   } else {
     Timeline.findById(req.body.view)
+      // .populate("watchers")
       .then((timeline) => {
         Event.find({ tline: req.body.view })
           .then((events) => {
@@ -376,78 +358,69 @@ app.post("/addWatcher", checkAuthenticated, (req, res) => {
 //     });
 // });
 
-app.post(
-  "/addEvent",
-  checkAuthenticated,
-  upload.single("image"),
-  async (req, res) => {
-    try {
-      if (req.file) {
-        const containerClient = blobServiceClient.getContainerClient(
-          AZURE_STORAGE_CONTAINER
-        );
-        const blobName = `${Date.now()}-${req.file.originalname}`;
+app.post("/addEvent", checkAuthenticated, upload.single("image"), async (req, res) => {
+  try {
+    if (req.file) {
+      const containerClient = blobServiceClient.getContainerClient(AZURE_STORAGE_CONTAINER);
+      const blobName = `${Date.now()}-${req.file.originalname}`;
 
-        const blockBlobClient = containerClient.getBlockBlobClient(blobName);
+      const blockBlobClient = containerClient.getBlockBlobClient(blobName);
 
-        const stream = require("fs").createReadStream(req.file.path);
-        await blockBlobClient.uploadStream(stream, undefined, undefined, {
-          blobHTTPHeaders: {
-            blobContentType: "image/jpeg", // Set the content type based on your needs
-          },
+      const stream = require("fs").createReadStream(req.file.path);
+      await blockBlobClient.uploadStream(stream, undefined, undefined, {
+        blobHTTPHeaders: {
+          blobContentType: "image/jpeg", // Set the content type based on your needs
+        },
+      });
+
+      const imageUrl = blockBlobClient.url;
+
+      // Generate a SAS token for the uploaded image
+      const sasToken = blockBlobClient.generateSasUrl({
+        permissions: "r", // 'r' for read
+        startsOn: new Date(),
+        expiresOn: new Date(new Date().valueOf() + 3600 * 1000), // 1 hour from now
+      });
+
+      const newEvent = new Event({
+        title: req.body.title,
+        date: req.body.date,
+        text: req.body.text,
+        image: imageUrl,
+        tline: req.body.tline,
+        creator: req.user,
+      });
+
+      // Save the new event to the database
+      newEvent
+        .save()
+        .then(() => {
+          res.redirect("/tp");
+        })
+        .catch((err) => {
+          console.error(err);
+          res.status(500).send("Error saving event");
         });
 
-        const imageUrl = blockBlobClient.url;
-
-        // Generate a SAS token for the uploaded image
-        const sasToken = blockBlobClient.generateSasUrl({
-          permissions: "r", // 'r' for read
-          startsOn: new Date(),
-          expiresOn: new Date(new Date().valueOf() + 3600 * 1000), // 1 hour from now
-        });
-
-        const newEvent = new Event({
-          title: req.body.title,
-          date: req.body.date,
-          text: req.body.text,
-          image: imageUrl,
-          tline: req.body.tline,
-          creator: req.user,
-        });
-
-        // Save the new event to the database
-        newEvent
-          .save()
-          .then(() => {
-            res.redirect("/tp");
-          })
-          .catch((err) => {
-            console.error(err);
-            res.status(500).send("Error saving event");
-          });
-
-        // // Send the SAS URL in the response along with the image URL
-        // res.json({ imageUrl: imageUrl, sasUrl: sasToken });
-      } else {
-        res.status(400).json({ error: "Image upload failed" });
-      }
-    } catch (error) {
-      console.error("Error during image upload:", error);
-      res
-        .status(500)
-        .json({ error: "Error uploading image to Azure Blob Storage" });
+      // // Send the SAS URL in the response along with the image URL
+      // res.json({ imageUrl: imageUrl, sasUrl: sasToken });
+    } else {
+      res.status(400).json({ error: "Image upload failed" });
     }
-
-    // Resize and compress the image using sharp
-    // const compressedImageBuffer = await sharp(req.file.buffer)
-    //   .resize({ width: 800 }) // You can adjust the dimensions
-    //   .jpeg({ quality: 80 }) // You can adjust the image quality
-    //   .toBuffer();
-
-    //   const compressedImageSizeKB = compressedImageBuffer.length / 1024;
-    //   console.log(`Compressed image size: ${compressedImageSizeKB} KB`);
+  } catch (error) {
+    console.error("Error during image upload:", error);
+    res.status(500).json({ error: "Error uploading image to Azure Blob Storage" });
   }
-);
+
+  // Resize and compress the image using sharp
+  // const compressedImageBuffer = await sharp(req.file.buffer)
+  //   .resize({ width: 800 }) // You can adjust the dimensions
+  //   .jpeg({ quality: 80 }) // You can adjust the image quality
+  //   .toBuffer();
+
+  //   const compressedImageSizeKB = compressedImageBuffer.length / 1024;
+  //   console.log(`Compressed image size: ${compressedImageSizeKB} KB`);
+});
 
 app.post("/deleteEvent", checkAuthenticated, (req, res) => {
   Event.findByIdAndDelete(req.body.delete).then();

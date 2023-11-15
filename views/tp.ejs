@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0 user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
     <link
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"
@@ -16,80 +13,125 @@
     <link rel="stylesheet" href="/tp.css" />
     <title>Document</title>
   </head>
+
   <body>
-    <div class="container">
-      <div class="navbar">
-        <div class="logo">
-          <img src="/memoria_logo.png" alt="" />
-        </div>
-        <div class="icons">
-          <i class="fa-solid fa-bell"></i>
-          <i class="fa-solid fa-question"></i>
-        </div>
+    <div class="navbar">
+      <div class="logo">
+        <img src="/memoria_logo.png" alt="" />
       </div>
-      <div class="profile-container">
-        <h1>Hello <%= user.name %></h1>
+      <div class="icons">
+        <i class="fa-regular fa-bell"></i>
+        <i class="fa-regular fa-question"></i>
         <img class="profile-image" src="<%= user.image %>" alt="profile" />
-
-        <div class="timeline-heading">
-          <h1>Timeline by you</h1>
-          <form action="/viewTimeline" method="post">
-            <% for (let i = 0; i < createdTimelines.length; i++) { %>
-            <h2>title: <%= createdTimelines[i].title %></h2>
-            <h3>Date created: <%= createdTimelines[i].dateCreated %></h3>
-            <h3>by: <%= createdTimelines[i].creator.name %></h3>
-            <button
-              type="submit"
-              name="delete"
-              value="<%= createdTimelines[i].id %>"
-            >
-              Delete
-            </button>
-            <button
-              type="submit"
-              name="view"
-              value="<%= createdTimelines[i].id %>"
-            >
-              View
-            </button>
-            <% } %>
+      </div>
+    </div>
+    <div class="hero">
+      <div class="sidebar">
+        <p id="timelineByYou" style="background: #efedff">Timeline by you</p>
+        <p id="timelineAdded">Timeline added</p>
+        <div class="logout">
+          <form action="/logoutUser?_method=DELETE" method="post">
+            <button class="logout-btn" type="submit">Logout</button>
           </form>
-          <button id="createTimeline" type="submit">Create</button>
-          <h1>Timeline added</h1>
-          <form action="/watchTimeline" method="post">
-            <% for (let i = 0; i < wactchTimelines.length; i++) { %>
-            <h2>title: <%= wactchTimelines[i].title %></h2>
-            <h3>Date created: <%= wactchTimelines[i].dateCreated %></h3>
-            <h3>by: <%= wactchTimelines[i].creator.name %></h3>
-            <button
-              type="submit"
-              name="remove"
-              value="<%= wactchTimelines[i].id %>"
-            >
-              Remove
-            </button>
-            <button
-              type="submit"
-              name="view"
-              value="<%= wactchTimelines[i].id %>"
-            >
-              View
-            </button>
+        </div>
+      </div>
+      <div class="container">
+        <div class="timelineByYou" id="timelineByYouId">
+          <form action="/viewTimeline" method="post">
+            <% for (let i=0; i < createdTimelines.length; i++) { %>
+            <div class="timelines">
+              <p class="timelineTitle"><%= createdTimelines[i].title %></p>
+              <p p class="timelineDate">
+                <%= createdTimelines[i].dateCreated.toLocaleDateString('en-US', { day: '2-digit' , month: 'long' , year:
+                'numeric' }) %>
+              </p>
+              <div class="members">
+                <img src="<%= createdTimelines[i].creator.image %>" alt="" class="creator-logo" />
+                <% for (let j=0; j < createdTimelines[i].watchers.length; j++) { %>
+                <img src="<%= createdTimelines[i].watchers[j].image %>" alt="" class="members-logo" />
+                <% } %>
+              </div>
+              <button type="submit" name="delete" value="<%= createdTimelines[i].id %>" class="remove-btn">
+                <i class="fa-solid fa-trash"></i>
+              </button>
+              <button type="submit" name="view" value="<%= createdTimelines[i].id %>" class="view-btn">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+            <!-- <h3>by: <%= createdTimelines[i].creator.name %></h3> -->
             <% } %>
           </form>
         </div>
+        <div class="timelineAdded" id="timelineAddedId" style="display: none">
+          <form action="/watchTimeline" method="post">
+            <% for (let i=0; i < wactchTimelines.length; i++) { %>
+            <div class="timelines">
+              <p class="timelineTitle"><%= wactchTimelines[i].title %></p>
+              <p class="timelineDate">
+                <%= wactchTimelines[i].dateCreated.toLocaleDateString('en-US', { day: '2-digit' , month: 'long' , year:
+                'numeric' }) %>
+              </p>
 
-        <form action="/logoutUser?_method=DELETE" method="post">
-          <button class="logout-btn" type="submit">Logout</button>
-        </form>
+              <!-- <h3>by: <%= wactchTimelines[i].creator.name %></h3> -->
+              <div class="members">
+                <!-- <h3>members:</h3> -->
+                <!-- <h3>Watchers:</h3> -->
+                <img src="<%= wactchTimelines[i].creator.image %>" alt="" class="creator-logo" />
+                <% for (let j=0; j < wactchTimelines[i].watchers.length; j++) { %>
+                <img src="<%= wactchTimelines[i].watchers[j].image %>" alt="" class="members-logo" />
+                <% } %>
+              </div>
+
+              <button class="remove-btn" type="submit" name="remove" value="<%= wactchTimelines[i].id %>">Exit</button>
+              <button class="view-btn" type="submit" name="view" value="<%= wactchTimelines[i].id %>">
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+            <% } %>
+          </form>
+        </div>
       </div>
+      <!-- <div class="friends">
+        <h1>My friends</h1>
+        <% for (let i = 0; i < wactchTimelines.length; i++) { %>
+        <div class="friends-list">
+          <div class="friends-item">
+            <img src="<%= wactchTimelines[i].creator.image %>" alt="" />
+            <h3><%= wactchTimelines[i].creator.name %></h3>
+            <% } %>
+          </div>
+        </div>
+      </div> -->
+      <!-- <h1>Hello <%= user.name %></h1> -->
+
+      <button id="createTimeline" type="submit">
+        <i class="fa-solid fa-plus fa-xl"></i>
+      </button>
     </div>
   </body>
   <script>
+    var timelineByYou = document.getElementById("timelineByYou");
+    var timelineByYouId = document.getElementById("timelineByYouId");
+    var timelineAdded = document.getElementById("timelineAdded");
+    var timelineAddedId = document.getElementById("timelineAddedId");
+
+    timelineByYou.addEventListener("click", () => {
+      timelineAddedId.style.display = "none";
+      timelineByYouId.style.display = "initial";
+      timelineByYou.style.background = "#efedff";
+      timelineAdded.style.background = "none";
+    });
+
+    timelineAdded.addEventListener("click", () => {
+      timelineByYouId.style.display = "none";
+      timelineAddedId.style.display = "initial";
+      timelineAdded.style.background = "#efedff";
+      timelineByYou.style.background = "none";
+    });
+
     document.addEventListener("DOMContentLoaded", function () {
       const createTimelineBtn = document.getElementById("createTimeline");
       createTimelineBtn.addEventListener("click", function () {
-        console.log("hello");
         const createTimelinePopup = document.createElement("div");
         createTimelinePopup.id = "create-timeline-popup";
         createTimelinePopup.innerHTML = `
@@ -103,9 +145,7 @@
         </form>
       `;
         document.body.appendChild(createTimelinePopup);
-        const cancelCreateTimelineBtn = document.getElementById(
-          "cancel-create-timeline-btn"
-        );
+        const cancelCreateTimelineBtn = document.getElementById("cancel-create-timeline-btn");
         cancelCreateTimelineBtn.addEventListener("click", function () {
           document.body.removeChild(createTimelinePopup);
         });
