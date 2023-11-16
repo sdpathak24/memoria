@@ -61,11 +61,12 @@ button:hover {
 } */
 
 .profile-image {
-  padding: 0 15px;
+  /* padding: 0 15px; */
   height: 33px;
   border-radius: 50%;
   width: 33px;
   object-fit: cover;
+  display: none;
 }
 
 .hero {
@@ -309,8 +310,8 @@ button:hover {
 
 .logout {
   position: absolute;
-  /* bottom: 15px; */
-  top: 40px;
+  bottom: 15px;
+  left: 20px;
 }
 
 .footer {
@@ -355,7 +356,21 @@ button:hover {
   }
 
   .createTimelineDesktop {
-    display: none;
+    background-color: #3e4684;
+    border: none;
+    padding: 20px;
+    border-radius: 50%;
+    font-size: 20px;
+    color: white;
+    position: fixed;
+    /* bottom: 20px; */
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    right: 20px;
+    bottom: 50px;
   }
   .footer {
     display: initial;
@@ -393,6 +408,15 @@ button:hover {
   }
 
   .profile-image {
+    position: absolute;
+    left: 10px;
+    top: 10px;
+    display: initial;
+  }
+
+  .logout-btn {
+    background-color: unset;
+    font-size: 20px;
     padding: 0;
   }
 }
