@@ -22,27 +22,29 @@
       <div class="sidebarMobile">
         <p id="timelineByYouMobile" style="background: #efedff">Timeline by you</p>
         <p id="timelineAddedMobile">Timeline added</p>
-        <div class="logout">
-          <form action="/logoutUser?_method=DELETE" method="post">
-            <button class="logout-btn" type="submit">Logout</button>
-          </form>
-        </div>
       </div>
       <div class="iconsDesktop">
         <i class="fa-regular fa-bell"></i>
         <i class="fa-regular fa-question"></i>
-        <img class="profile-image" src="<%= user.image %>" alt="profile" />
+        <div class="profileSection" id="profileSection">
+          <img class="profile-image" src="<%= user.image %>" alt="profile" />
+          <div class="logout" id="logout" style="display: none">
+            <form action="/logoutUser?_method=DELETE" method="post">
+              <button class="logout-btn" type="submit">Logout</button>
+            </form>
+          </div>
+        </div>
       </div>
     </div>
     <div class="hero">
       <div class="sidebarDesktop">
         <p id="timelineByYou" style="background: #efedff">Timeline by you</p>
         <p id="timelineAdded">Timeline added</p>
-        <div class="logout">
+        <!-- <div class="logout">
           <form action="/logoutUser?_method=DELETE" method="post">
             <button class="logout-btn" type="submit">Logout</button>
           </form>
-        </div>
+        </div> -->
       </div>
       <div class="container">
         <div class="timelineByYou" id="timelineByYouId">
@@ -100,17 +102,10 @@
           </form>
         </div>
       </div>
-      <div class="footer">
-        <div class="iconsMobile">
-          <i class="fa-solid fa-house"></i>
-          <i class="fa-regular fa-bell"></i>
-          <button type="submit">
-            <i class="fa-solid fa-plus fa-xl"></i>
-          </button>
-          <i class="fa-regular fa-question"></i>
-          <img class="profile-image" src="<%= user.image %>" alt="profile" />
-        </div>
-      </div>
+      <button id="createTimeline" class="createTimelineDesktop" type="submit">
+        <i class="fa-solid fa-plus fa-xl"></i>
+      </button>
+
       <!-- <div class="friends">
         <h1>My friends</h1>
         <% for (let i = 0; i < wactchTimelines.length; i++) { %>
@@ -123,13 +118,32 @@
         </div>
       </div> -->
       <!-- <h1>Hello <%= user.name %></h1> -->
-
-      <button id="createTimeline" class="createTimelineDesktop" type="submit">
-        <i class="fa-solid fa-plus fa-xl"></i>
-      </button>
+    </div>
+    <div class="footer">
+      <div class="iconsMobile">
+        <i class="fa-solid fa-house"></i>
+        <i class="fa-regular fa-bell"></i>
+        <button type="submit" class="createTimelineMobile" id="createTimelineMobile">
+          <i class="fa-solid fa-plus fa-xl"></i>
+        </button>
+        <i class="fa-regular fa-question"></i>
+        <img class="profile-image" src="<%= user.image %>" alt="profile" />
+      </div>
     </div>
   </body>
   <script>
+    var profileSection = document.getElementById("profileSection");
+    var logout = document.getElementById("logout");
+
+    profileSection.addEventListener("click", () => {
+      console.log("cl");
+      if (logout.style.display == "none") {
+        logout.style.display = "initial";
+      } else {
+        logout.style.display = "none";
+      }
+    });
+
     var timelineByYou = document.getElementById("timelineByYou");
     var timelineByYouMobile = document.getElementById("timelineByYouMobile");
     var timelineByYouId = document.getElementById("timelineByYouId");
@@ -167,6 +181,28 @@
 
     document.addEventListener("DOMContentLoaded", function () {
       const createTimelineBtn = document.getElementById("createTimeline");
+      createTimelineBtn.addEventListener("click", function () {
+        const createTimelinePopup = document.createElement("div");
+        createTimelinePopup.id = "create-timeline-popup";
+        createTimelinePopup.innerHTML = `
+        <form id="create-timeline-form" class="create-timeline-form" action="/timeline" method="post">
+          <label for="timeline-heading">Timeline Heading:</label>
+          <input type="text" id="timeline-heading" name="heading" required>
+          <div class="create-timeline-btns">
+            <button type="button" id="cancel-create-timeline-btn">Cancel</button>
+            <button type="submit">Create Timeline</button>
+          </div>
+        </form>
+      `;
+        document.body.appendChild(createTimelinePopup);
+        const cancelCreateTimelineBtn = document.getElementById("cancel-create-timeline-btn");
+        cancelCreateTimelineBtn.addEventListener("click", function () {
+          document.body.removeChild(createTimelinePopup);
+        });
+      });
+    });
+    document.addEventListener("DOMContentLoaded", function () {
+      const createTimelineBtn = document.getElementById("createTimelineMobile");
       createTimelineBtn.addEventListener("click", function () {
         const createTimelinePopup = document.createElement("div");
         createTimelinePopup.id = "create-timeline-popup";

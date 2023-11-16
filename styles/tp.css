@@ -46,6 +46,10 @@ button:hover {
   padding: 0 15px;
 }
 
+.profileSection {
+  position: relative;
+}
+
 /* .profile-container {
   background-color: #f1f7fe;
   display: flex;
@@ -58,9 +62,9 @@ button:hover {
 
 .profile-image {
   padding: 0 15px;
-  height: 30px;
+  height: 33px;
   border-radius: 50%;
-  width: 30px;
+  width: 33px;
   object-fit: cover;
 }
 
@@ -159,13 +163,28 @@ button:hover {
 .createTimelineDesktop {
   background-color: #3e4684;
   border: none;
-  padding: 10px;
+  padding: 28px;
   border-radius: 50%;
   font-size: 28px;
   color: white;
-  position: absolute;
-  bottom: 20px;
+  position: fixed;
+  /* bottom: 20px; */
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   right: 20px;
+  bottom: 20px;
+}
+
+.createTimelineMobile {
+  background-color: #3e4684;
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  font-size: 20px;
+  color: white;
 }
 
 .timelines {
@@ -232,6 +251,9 @@ button:hover {
   font-size: 24px;
   border-radius: 6px;
   width: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .remove-btn {
@@ -287,7 +309,8 @@ button:hover {
 
 .logout {
   position: absolute;
-  bottom: 15px;
+  /* bottom: 15px; */
+  top: 40px;
 }
 
 .footer {
@@ -308,17 +331,20 @@ button:hover {
     justify-content: space-evenly;
     width: 100%;
   }
+
+  .sidebarMobile p {
+    font-size: 15px;
+    padding: 10px;
+    border-radius: 10px;
+  }
+
   .logout {
     display: none;
   }
 
-  .footer {
-    border: 1px solid #5e5e5e;
-  }
-
   .navbar {
     flex-direction: column;
-    position: sticky;
+    /* position: sticky; */
     top: 0;
     z-index: 100;
     background-color: white;
@@ -333,7 +359,7 @@ button:hover {
   }
   .footer {
     display: initial;
-    /* position: absolute; */
+    position: fixed;
     bottom: 0;
     width: 100%;
   }
@@ -353,28 +379,17 @@ button:hover {
     flex-direction: column;
   }
 
-  .container {
-    width: 100%;
-    height: 100dvh;
-  }
-
-  .footer {
-    display: initial;
-    position: sticky;
-    bottom: 0;
-    width: 100%;
-  }
-
   .iconsMobile {
     display: flex;
     align-items: center;
     width: 100%;
-    position: sticky;
+    /* position: sticky; */
     bottom: 0;
     justify-content: space-around;
     background-color: white;
     padding: 10px 0;
     border: 1px solid #5e5e5e;
+    font-size: 25px;
   }
 
   .profile-image {

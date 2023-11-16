@@ -73,9 +73,10 @@ body {
   border: none;
   color: black;
   font-size: 15px;
-  padding: 20px 70px 20px 20px;
+  padding: 20px;
   margin: 10px;
   border-radius: 10px;
+  width: 250px;
 }
 
 .password {
