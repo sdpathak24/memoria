@@ -10,6 +10,7 @@ body {
 
 .container {
   display: flex;
+  height: 100dvh;
 }
 
 .left-half {
@@ -17,8 +18,9 @@ body {
   width: 60%;
   display: flex;
   justify-content: center;
-  height: 100vh;
+  /* height: 100vh; */
   align-items: center;
+  height: 100%;
 }
 
 .logo img {
@@ -32,6 +34,11 @@ body {
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  height: 100%;
+}
+
+.small-logo {
+  display: none;
 }
 
 .signup-container {
@@ -39,7 +46,7 @@ body {
   flex-direction: column;
   background: #dde5f4;
   border-radius: 10px;
-  width: 50%;
+  /* width: 50%; */
 }
 
 .signup-container form {
@@ -60,7 +67,7 @@ body {
   border: none;
   color: black;
   font-size: 15px;
-  padding: 20px;
+  padding: 20px 70px 20px 20px;
   margin: 10px;
   border-radius: 10px;
 }
@@ -152,4 +159,23 @@ body {
   color: red;
   font-family: "Courier New", Courier, monospace;
   font-size: 10px;
+}
+
+@media screen and (max-width: 976px) {
+  .left-half {
+    display: none;
+  }
+
+  .right-half {
+    width: 100%;
+  }
+
+  .small-logo {
+    position: absolute;
+    top: 10px;
+    display: initial;
+  }
+  .small-logo img {
+    width: 10pc;
+  }
 }

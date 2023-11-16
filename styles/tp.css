@@ -24,7 +24,7 @@ button:hover {
   justify-content: space-between;
   /* background-color: #d0cfff; */
   border-bottom: 0.5px solid #5e5e5e;
-  height: 4pc;
+  /* height: 5pc; */
 }
 
 .logo {
@@ -36,13 +36,13 @@ button:hover {
   margin: 0 10px;
 }
 
-.icons {
+.iconsDesktop {
   margin: 0 10px;
   display: flex;
   align-items: center;
 }
 
-.icons i {
+.iconsDesktop i {
   padding: 0 15px;
 }
 
@@ -67,9 +67,10 @@ button:hover {
 .hero {
   display: flex;
   /* justify-content: space-between; */
+  /* height: 100dvh; */
 }
 
-.sidebar {
+.sidebarDesktop {
   display: flex;
   width: 18%;
   flex-direction: column;
@@ -77,15 +78,19 @@ button:hover {
   margin: 10px;
 }
 
-.sidebar p {
+.sidebarDesktop p {
   margin: 10px;
   /* background: aqua; */
   padding: 10px;
   border-radius: 10px;
 }
 
-.sidebar p:hover {
+.sidebarDesktop p:hover {
   cursor: pointer;
+}
+
+.sidebarMobile {
+  display: none;
 }
 
 .friends {
@@ -126,16 +131,16 @@ button:hover {
 } */
 
 .timelineByYou {
-  margin-top: 10px;
-  padding: 20px;
+  margin: 10px;
+  /* padding: 20px; */
   border-radius: 10px;
   /* background-color: #f1f7fe; */
   width: 100%;
 }
 
 .timelineAdded {
-  margin-top: 10px;
-  padding: 20px;
+  margin: 10px;
+  /* padding: 20px; */
   border-radius: 10px;
   /* background-color: #f1f7fe; */
   width: 100%;
@@ -151,7 +156,7 @@ button:hover {
   cursor: pointer;
 }
 
-#createTimeline {
+.createTimelineDesktop {
   background-color: #3e4684;
   border: none;
   padding: 10px;
@@ -283,4 +288,96 @@ button:hover {
 .logout {
   position: absolute;
   bottom: 15px;
+}
+
+.footer {
+  display: none;
+}
+
+@media screen and (max-width: 976px) {
+  .iconsDesktop {
+    display: none;
+  }
+
+  .sidebarDesktop {
+    display: none;
+  }
+
+  .sidebarMobile {
+    display: flex;
+    justify-content: space-evenly;
+    width: 100%;
+  }
+  .logout {
+    display: none;
+  }
+
+  .footer {
+    border: 1px solid #5e5e5e;
+  }
+
+  .navbar {
+    flex-direction: column;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background-color: white;
+  }
+
+  .container {
+    width: 100%;
+  }
+
+  .createTimelineDesktop {
+    display: none;
+  }
+  .footer {
+    display: initial;
+    /* position: absolute; */
+    bottom: 0;
+    width: 100%;
+  }
+
+  /* .navbar {
+    flex-direction: column;
+  } */
+
+  .logo img {
+    height: 3pc;
+  }
+
+  .hero {
+    display: flex;
+    /* justify-content: space-between; */
+    height: 100%;
+    flex-direction: column;
+  }
+
+  .container {
+    width: 100%;
+    height: 100dvh;
+  }
+
+  .footer {
+    display: initial;
+    position: sticky;
+    bottom: 0;
+    width: 100%;
+  }
+
+  .iconsMobile {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    justify-content: space-around;
+    background-color: white;
+    padding: 10px 0;
+    border: 1px solid #5e5e5e;
+  }
+
+  .profile-image {
+    padding: 0;
+  }
 }

@@ -2,10 +2,7 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0 user-scalable=no"
-    />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0 user-scalable=no" />
     <link rel="stylesheet" href="/signup.css" />
     <title>Signup-Timeline</title>
   </head>
@@ -17,31 +14,20 @@
         </div>
       </div>
       <div class="right-half">
+        <div class="small-logo">
+          <img src="/memoria_logo.png" alt="" />
+        </div>
         <div class="signup-container">
           <form action="/signup" method="post" enctype="multipart/form-data">
             <input type="text" name="name" placeholder="name" class="name" />
             <input type="text" name="email" placeholder="email" class="email" />
-            <input
-              type="password"
-              name="password"
-              placeholder="password"
-              class="password"
-            />
-            <input
-              type="file"
-              name="image"
-              id="picture"
-              accept="image/*"
-              class="picture"
-              required
-            />
+            <input type="password" name="password" placeholder="password" class="password" />
+            <input type="file" name="image" id="picture" accept="image/*" class="picture" required />
             <button type="submit" class="signup-btn">signup</button>
           </form>
           <div class="login-container">
             <p>already have an account?</p>
-            <button onclick="window.location.href='/login'" class="login-btn">
-              login
-            </button>
+            <button onclick="window.location.href='/login'" class="login-btn">login</button>
           </div>
         </div>
       </div>

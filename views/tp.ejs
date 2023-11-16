@@ -19,14 +19,23 @@
       <div class="logo">
         <img src="/memoria_logo.png" alt="" />
       </div>
-      <div class="icons">
+      <div class="sidebarMobile">
+        <p id="timelineByYouMobile" style="background: #efedff">Timeline by you</p>
+        <p id="timelineAddedMobile">Timeline added</p>
+        <div class="logout">
+          <form action="/logoutUser?_method=DELETE" method="post">
+            <button class="logout-btn" type="submit">Logout</button>
+          </form>
+        </div>
+      </div>
+      <div class="iconsDesktop">
         <i class="fa-regular fa-bell"></i>
         <i class="fa-regular fa-question"></i>
         <img class="profile-image" src="<%= user.image %>" alt="profile" />
       </div>
     </div>
     <div class="hero">
-      <div class="sidebar">
+      <div class="sidebarDesktop">
         <p id="timelineByYou" style="background: #efedff">Timeline by you</p>
         <p id="timelineAdded">Timeline added</p>
         <div class="logout">
@@ -91,6 +100,17 @@
           </form>
         </div>
       </div>
+      <div class="footer">
+        <div class="iconsMobile">
+          <i class="fa-solid fa-house"></i>
+          <i class="fa-regular fa-bell"></i>
+          <button type="submit">
+            <i class="fa-solid fa-plus fa-xl"></i>
+          </button>
+          <i class="fa-regular fa-question"></i>
+          <img class="profile-image" src="<%= user.image %>" alt="profile" />
+        </div>
+      </div>
       <!-- <div class="friends">
         <h1>My friends</h1>
         <% for (let i = 0; i < wactchTimelines.length; i++) { %>
@@ -104,15 +124,17 @@
       </div> -->
       <!-- <h1>Hello <%= user.name %></h1> -->
 
-      <button id="createTimeline" type="submit">
+      <button id="createTimeline" class="createTimelineDesktop" type="submit">
         <i class="fa-solid fa-plus fa-xl"></i>
       </button>
     </div>
   </body>
   <script>
     var timelineByYou = document.getElementById("timelineByYou");
+    var timelineByYouMobile = document.getElementById("timelineByYouMobile");
     var timelineByYouId = document.getElementById("timelineByYouId");
     var timelineAdded = document.getElementById("timelineAdded");
+    var timelineAddedMobile = document.getElementById("timelineAddedMobile");
     var timelineAddedId = document.getElementById("timelineAddedId");
 
     timelineByYou.addEventListener("click", () => {
@@ -127,6 +149,20 @@
       timelineAddedId.style.display = "initial";
       timelineAdded.style.background = "#efedff";
       timelineByYou.style.background = "none";
+    });
+
+    timelineByYouMobile.addEventListener("click", () => {
+      timelineAddedId.style.display = "none";
+      timelineByYouId.style.display = "initial";
+      timelineByYouMobile.style.background = "#efedff";
+      timelineAddedMobile.style.background = "none";
+    });
+
+    timelineAddedMobile.addEventListener("click", () => {
+      timelineByYouId.style.display = "none";
+      timelineAddedId.style.display = "initial";
+      timelineAddedMobile.style.background = "#efedff";
+      timelineByYouMobile.style.background = "none";
     });
 
     document.addEventListener("DOMContentLoaded", function () {
