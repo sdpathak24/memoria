@@ -218,10 +218,12 @@ app.post("/viewTimeline", checkAuthenticated, (req, res) => {
     });
   } else {
     Timeline.findById(req.body.view).then((timeline) => {
-      Event.find({ tline: req.body.view }).populate('creator').then((events) => {
-        // console.log(events);
-        res.render("timeline.ejs", { timeline, events });
-      });
+      Event.find({ tline: req.body.view })
+        .populate("creator")
+        .then((events) => {
+          // console.log(events);
+          res.render("timeline.ejs", { timeline, events });
+        });
     });
   }
 });
@@ -250,7 +252,7 @@ app.post("/watchTimeline", checkAuthenticated, (req, res) => {
     Timeline.findById(req.body.view)
       .then((timeline) => {
         Event.find({ tline: req.body.view })
-          .populate('creator')
+          .populate("creator")
           .then((events) => {
             const auth = req.user;
             // console.log(events);
@@ -397,31 +399,27 @@ app.post("/addEvent", checkAuthenticated, upload.single("image"), async (req, re
     newEvent
       .save()
       .then(() => {
-
         if (req.body.flag == 1) {
-          Timeline.findById(req.body.tline)
-            .then((timeline) => {
-              Event.find({ tline: req.body.tline })
-                .populate('creator')
-                .then((events) => {
-                  const auth = req.user;
-                  // console.log(events);
-                  // console.log(auth);
-                  res.render("watchTimeline.ejs", { timeline, events, auth });
-                })
-                .catch((err) => {
-                  console.error(err);
-                });
-            })
-        }
-        else {
-          Timeline.findById(req.body.tline)
-          .then((timeline) => {
+          Timeline.findById(req.body.tline).then((timeline) => {
             Event.find({ tline: req.body.tline })
-            .populate('creator')
-            .then((events) => {
-              res.render("timeline.ejs", { timeline, events });
-            });
+              .populate("creator")
+              .then((events) => {
+                const auth = req.user;
+                // console.log(events);
+                // console.log(auth);
+                res.render("watchTimeline.ejs", { timeline, events, auth });
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          });
+        } else {
+          Timeline.findById(req.body.tline).then((timeline) => {
+            Event.find({ tline: req.body.tline })
+              .populate("creator")
+              .then((events) => {
+                res.render("timeline.ejs", { timeline, events });
+              });
           });
         }
       })
@@ -438,13 +436,12 @@ app.post("/addEvent", checkAuthenticated, upload.single("image"), async (req, re
 app.post("/deleteEvent", checkAuthenticated, (req, res) => {
   Event.findByIdAndDelete(req.body.delete).then();
   {
-    Timeline.findById(req.body.tline)
-    .then((timeline) => {
+    Timeline.findById(req.body.tline).then((timeline) => {
       Event.find({ tline: req.body.tline })
-      .populate('creator')
-      .then((events) => {
-        res.render("timeline.ejs", { timeline, events });
-      });
+        .populate("creator")
+        .then((events) => {
+          res.render("timeline.ejs", { timeline, events });
+        });
     });
   }
 });
