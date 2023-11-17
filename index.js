@@ -360,6 +360,8 @@ app.post("/addWatcher", checkAuthenticated, (req, res) => {
 
 app.post("/addEvent", checkAuthenticated, upload.single("image"), async (req, res) => {
   try {
+    let imageUrl = null;
+
     if (req.file) {
       const containerClient = blobServiceClient.getContainerClient(AZURE_STORAGE_CONTAINER);
       const blobName = `${Date.now()}-${req.file.originalname}`;
@@ -373,7 +375,7 @@ app.post("/addEvent", checkAuthenticated, upload.single("image"), async (req, re
         },
       });
 
-      const imageUrl = blockBlobClient.url;
+      imageUrl = blockBlobClient.url;
 
       // Generate a SAS token for the uploaded image
       const sasToken = blockBlobClient.generateSasUrl({
@@ -382,31 +384,25 @@ app.post("/addEvent", checkAuthenticated, upload.single("image"), async (req, re
         expiresOn: new Date(new Date().valueOf() + 3600 * 1000), // 1 hour from now
       });
 
-      const newEvent = new Event({
-        title: req.body.title,
-        date: req.body.date,
-        text: req.body.text,
-        image: imageUrl,
-        tline: req.body.tline,
-        creator: req.user,
-      });
-
-      // Save the new event to the database
-      newEvent
-        .save()
-        .then(() => {
-          res.redirect("/tp");
-        })
-        .catch((err) => {
-          console.error(err);
-          res.status(500).send("Error saving event");
-        });
-
-      // // Send the SAS URL in the response along with the image URL
+      // Send the SAS URL in the response along with the image URL
       // res.json({ imageUrl: imageUrl, sasUrl: sasToken });
-    } else {
-      res.status(400).json({ error: "Image upload failed" });
     }
+
+    const newEvent = new Event({
+      title: req.body.title,
+      date: req.body.date,
+      text: req.body.text,
+      image: imageUrl || "", // If no image is uploaded, imageUrl will be null, use an empty string instead
+      tline: req.body.tline,
+      creator: req.user,
+    });
+
+    // Save the new event to the database
+    await newEvent.save();
+
+    res.redirect("/tp");
+    // res.status(200).json({ message: "Event added successfully" });
+    // res.render("/addEvent");
   } catch (error) {
     console.error("Error during image upload:", error);
     res.status(500).json({ error: "Error uploading image to Azure Blob Storage" });
