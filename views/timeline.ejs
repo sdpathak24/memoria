@@ -24,6 +24,7 @@
     <% for (var i=0; i <events.length; i++) { %>
       <h3> Event : <%= i+1 %>
       </h3>
+      <img width="300" class="profile-image" src="<%= events[i].creator.image %>" alt="Picture">
       <h4> Title : <%= events[i].title %>
       </h4>
       <h4> Date : <%= events[i].date %>

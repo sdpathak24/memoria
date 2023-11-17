@@ -218,7 +218,7 @@ app.post("/viewTimeline", checkAuthenticated, (req, res) => {
     });
   } else {
     Timeline.findById(req.body.view).then((timeline) => {
-      Event.find({ tline: req.body.view }).then((events) => {
+      Event.find({ tline: req.body.view }).populate('creator').then((events) => {
         // console.log(events);
         res.render("timeline.ejs", { timeline, events });
       });
@@ -250,10 +250,11 @@ app.post("/watchTimeline", checkAuthenticated, (req, res) => {
     Timeline.findById(req.body.view)
       .then((timeline) => {
         Event.find({ tline: req.body.view })
+          .populate('creator')
           .then((events) => {
             const auth = req.user;
-            console.log(events);
-            console.log(auth);
+            // console.log(events);
+            // console.log(auth);
             res.render("watchTimeline.ejs", { timeline, events, auth });
           })
           .catch((err) => {
@@ -396,11 +397,33 @@ app.post("/addEvent", checkAuthenticated, upload.single("image"), async (req, re
     newEvent
       .save()
       .then(() => {
-        Timeline.findById(req.body.tline).then((timeline) => {
-          Event.find({ tline: req.body.tline }).then((events) => {
-            res.render("timeline.ejs", { timeline, events });
+
+        if (req.body.flag == 1) {
+          Timeline.findById(req.body.tline)
+            .then((timeline) => {
+              Event.find({ tline: req.body.tline })
+                .populate('creator')
+                .then((events) => {
+                  const auth = req.user;
+                  // console.log(events);
+                  // console.log(auth);
+                  res.render("watchTimeline.ejs", { timeline, events, auth });
+                })
+                .catch((err) => {
+                  console.error(err);
+                });
+            })
+        }
+        else {
+          Timeline.findById(req.body.tline)
+          .then((timeline) => {
+            Event.find({ tline: req.body.tline })
+            .populate('creator')
+            .then((events) => {
+              res.render("timeline.ejs", { timeline, events });
+            });
           });
-        });
+        }
       })
       .catch((err) => {
         console.error(err);
@@ -415,9 +438,11 @@ app.post("/addEvent", checkAuthenticated, upload.single("image"), async (req, re
 app.post("/deleteEvent", checkAuthenticated, (req, res) => {
   Event.findByIdAndDelete(req.body.delete).then();
   {
-    Timeline.findById(req.body.tline).then((timeline) => {
-      Event.find({ tline: req.body.tline }).then((events) => {
-        // console.log(events);
+    Timeline.findById(req.body.tline)
+    .then((timeline) => {
+      Event.find({ tline: req.body.tline })
+      .populate('creator')
+      .then((events) => {
         res.render("timeline.ejs", { timeline, events });
       });
     });
