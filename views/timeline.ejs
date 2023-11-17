@@ -20,6 +20,7 @@
     </button>
   </form>
   <form action="/deleteEvent" method="post">
+    <input type="hidden" name="tline" value="<%= timeline.id %>">
     <% for (var i=0; i <events.length; i++) { %>
       <h3> Event : <%= i+1 %>
       </h3>
@@ -29,7 +30,9 @@
       </h4>
       <h4> Text : <%= events[i].text %>
       </h4>
+      <% if (events[i].image != '') {%>
       <img width="300" class="profile-image" src="<%= events[i].image %>" alt="Picture">
+      <% } %>
       <button type="submit" name="delete" value="<%= events[i].id %>">Delete event</button>
       <% } %>
   </form>
