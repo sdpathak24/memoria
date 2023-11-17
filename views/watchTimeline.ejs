@@ -34,7 +34,7 @@
       <% if (events[i].image !='' ) {%>
         <img width="300" class="profile-image" src="<%= events[i].image %>" alt="Picture">
         <% } %>
-          <% if (events[i].creator==auth) { %>
+          <% if (events[i].creator._id==auth) { %>
             <button type="submit" name="delete" value="<%= events[i].id %>">Delete event</button>
             <% } %>
               <% } %>
