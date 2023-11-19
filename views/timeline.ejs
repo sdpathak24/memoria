@@ -4,6 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   <link rel="stylesheet" href="/timeline.css">
   <title>Timeline</title>
 </head>
@@ -14,38 +15,69 @@
       <%= timeline.title %>
     </h1>
   </div>
-  <form action="/addWatcher" method="post">
-    <input type="email" name="email" />
-    <button type="submit" name="addWatcher" value="<%= timeline.id %>">
-      Add user
-    </button>
-  </form>
-  <form action="/deleteEvent" method="post" class="timelineForm">
-    <input type="hidden" name="tline" value="<%= timeline.id %>">
-    <% for (var i=0; i <events.length; i++) { %>
+  <div class="container">
+
+    <form action="/deleteEvent" method="post" class="timelineForm">
+      <input type="hidden" name="tline" value="<%= timeline.id %>">
+      <% for (var i=0; i <events.length; i++) { %>
       <div class="event <%= i === events.length - 1 ? 'last-event' : '' %>">
-        <img width="300" class="profile-image" src="<%= events[i].creator.image %>" alt="Picture">
+        <img class="profile-image" src="<%= events[i].creator.image %>" alt="Picture">
         <div class="event-container">
           <!-- <h4> Event : <%= i+1 %>
           </h4> -->
           <div class="wrapper">
-            <h4>
-              <%= events[i].date.toLocaleDateString('en-US', { day: '2-digit' , month: 'long' , year: 'numeric' }) %>
-            </h4>
-            <% if (events[i].image !='' ) {%>
-              <img width="300" src="<%= events[i].image %>" alt="Picture">
-              <% } %>
-                <h4>
+            <div class="headingAndDelete">
+              <div class="wrapperHeading">
+                <p class="eventTitle">
                   <%= events[i].title %>
-                </h4>
-                <h4> Text : <%= events[i].text %>
-                </h4>
-                <button type="submit" name="delete" value="<%= events[i].id %>" class="deleteBtn">Delete event</button>
+                </p>
+                <p class="eventDate">
+                  <%= events[i].date.toLocaleDateString('en-US', { day: '2-digit' , month: 'long' , year: 'numeric' })
+                    %>
+                </p>
+              </div>
+              <button type="submit" name="delete" value="<%= events[i].id %>" class="deleteBtn"><i class="fa-solid fa-trash"></i></button>
+            </div>
+
+            <p>
+              <%= events[i].text %>
+            </p>
+            <% if (events[i].image !='' ) {%>
+            <img class="eventImage" src="<%= events[i].image %>" alt="Picture">
+            <% } %>
           </div>
         </div>
       </div>
       <% } %>
-  </form>
+    </form>
+    <div class="members">
+      <% 
+    var uniqueImages = []; // Array to store unique images
+
+    for (var i = 0; i < events.length; i++) {
+        var imageUrl = events[i].creator.image;
+
+        // Check if the image URL is not already in the uniqueImages array
+        if (uniqueImages.indexOf(imageUrl) === -1) {
+            // Add the image URL to the uniqueImages array
+            uniqueImages.push(imageUrl);
+
+            // Display the image
+            %>
+      <img src="<%= imageUrl %>" alt="">
+      <%
+        }
+    }
+    %>
+      <form action="/addWatcher" method="post">
+        <input type="email" name="email" />
+        <button type="submit" name="addWatcher" value="<%= timeline.id %>">
+          Add user
+        </button>
+      </form>
+
+    </div>
+  </div>
 
   <br />
   <button id="createEventBtn">Add event</button>

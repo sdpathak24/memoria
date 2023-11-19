@@ -4,7 +4,11 @@
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: sans-serif;
+}
+
+button:hover {
+  cursor: pointer;
 }
 
 .timelineForm {
@@ -17,15 +21,22 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
+  font-size: large;
+  padding: 20px 0;
+  border-bottom: 1px solid;
+  margin-bottom: 20px;
+}
+
+.members img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  object-fit: cover;
 }
 
 .event {
   display: flex;
   position: relative;
-}
-
-.images {
-  position: absolute;
 }
 
 /* .event::before .images {
@@ -41,12 +52,33 @@ body {
 
 .wrapper {
   padding: 10px;
-  background: antiquewhite;
-  border-radius: 20px;
+  /* background: antiquewhite; */
+  border-radius: 2px;
   /* width: 100%; */
   width: 500px;
   position: relative;
   margin-bottom: 20px;
+  border: 0.5px solid;
+}
+
+.headingAndDelete {
+  display: flex;
+  justify-content: space-between;
+}
+
+.wrapperHeading {
+  display: flex;
+  align-items: baseline;
+}
+
+.eventTitle {
+  font-size: 25px;
+  font-weight: 900;
+}
+
+.eventDate {
+  margin-left: 6px;
+  color: gray;
 }
 
 .last-event .event-container {
@@ -61,9 +93,14 @@ body {
   position: absolute;
 }
 
+.eventImage {
+  width: 100%;
+}
+
 .deleteBtn {
-  position: absolute;
-  right: 20px;
-  top: 50%;
-  /* transform: translate(-10%, -50%); */
+  background: none;
+  outline: none;
+  border: none;
+  color: red;
+  font-size: 15px;
 }
